@@ -1,0 +1,53 @@
+mode,id,difficulty,question,correct,status,attempts,llm_calls,seconds,sql,error
+baseline,e01,easy,How many customers are there?,True,success,1,1,0.55,"SELECT COUNT(*) AS customer_count
+FROM customers",
+baseline,e02,easy,How many orders were cancelled?,True,success,1,1,0.58,"SELECT COUNT(*) AS cancelled_orders
+FROM orders
+WHERE status = 'Cancelled'",
+baseline,e03,easy,How many products are currently active?,True,success,1,1,0.41,"SELECT COUNT(*) AS active_product_count
+FROM products
+WHERE is_active = 1",
+baseline,e04,easy,What is the average list price of products in the Electronics category?,True,success,1,1,9.22,"SELECT ROUND(AVG(p.list_price), 2) AS avg_list_price
+FROM products p
+JOIN categories c ON p.category_id = c.category_id
+WHERE c.category_name = 'Electronics'",
+baseline,e05,easy,How many online orders were placed in 2025?,False,success,1,1,0.77,"SELECT COUNT(*) AS online_orders_2025
+FROM orders
+WHERE channel = 'Online'
+  AND order_date >= '2025-01-01' AND order_date < '2026-01-01'",
+no_semantic,e01,easy,How many customers are there?,True,success,1,2,0.85,"SELECT COUNT(*) AS customer_count
+FROM customers",
+no_semantic,e02,easy,How many orders were cancelled?,True,success,1,2,9.41,"SELECT COUNT(*) AS cancelled_orders
+FROM orders
+WHERE status = 'Cancelled'",
+no_semantic,e03,easy,How many products are currently active?,True,success,1,2,8.95,"SELECT COUNT(*) AS active_product_count
+FROM products
+WHERE is_active = 1",
+no_semantic,e04,easy,What is the average list price of products in the Electronics category?,True,success,1,2,7.68,"SELECT ROUND(AVG(p.list_price), 2) AS avg_list_price
+FROM products p
+JOIN categories c ON p.category_id = c.category_id
+WHERE c.category_name = 'Electronics'",
+no_semantic,e05,easy,How many online orders were placed in 2025?,False,success,1,2,15.15,"SELECT COUNT(DISTINCT o.order_id) AS online_order_count
+FROM orders o
+JOIN stores s ON o.store_id = s.store_id
+WHERE s.store_name = 'Online'
+  AND o.order_date >= '2025-01-01'
+  AND o.order_date <= '2025-12-31'",
+agent,e01,easy,How many customers are there?,True,success,1,3,14.6,"SELECT COUNT(*) AS customer_count
+FROM customers",
+agent,e02,easy,How many orders were cancelled?,True,success,1,3,17.86,"SELECT COUNT(*) AS cancelled_order_count
+FROM orders
+WHERE status = 'Cancelled'",
+agent,e03,easy,How many products are currently active?,True,success,1,3,10.12,"SELECT COUNT(*) AS active_product_count
+FROM products
+WHERE is_active = 1",
+agent,e04,easy,What is the average list price of products in the Electronics category?,True,success,1,3,14.55,"SELECT ROUND(AVG(p.list_price), 2) AS avg_list_price
+FROM products p
+JOIN categories c ON p.category_id = c.category_id
+WHERE c.category_name = 'Electronics'",
+agent,e05,easy,How many online orders were placed in 2025?,True,success,2,5,18.63,"SELECT COUNT(DISTINCT o.order_id) AS online_order_count
+FROM orders o
+JOIN stores s ON o.store_id = s.store_id
+WHERE s.store_name = 'Online'
+  AND strftime('%Y', o.order_date) = '2025'
+  AND o.status <> 'Cancelled'",

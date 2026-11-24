@@ -1,0 +1,10 @@
+langgraph>=0.2
+anthropic>=0.40
+mcp>=1.2            # works with MCP Python SDK v1 (FastMCP) and v2 (MCPServer)
+streamlit>=1.38
+pandas>=2.0
+python-dotenv>=1.0
+pytest>=8
+
+# Only needed for WAREHOUSE_BACKEND=snowflake
+snowflake-connector-python[pandas]>=3.10
